@@ -1,12 +1,11 @@
 package com.example.demo.config;
 
 import com.example.demo.domain.user.UserEnum;
-import lombok.extern.slf4j.Slf4j;
+import com.example.demo.util.CustomResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,9 +43,7 @@ public class SecurityConfig {
 
         // Exception 가로채기
         http.exceptionHandling().authenticationEntryPoint((req , resp , authException)-> {
-//            resp.setContentType("application/json; charset=utf-8");
-            resp.setStatus(HttpStatus.FORBIDDEN.value());
-            resp.getWriter().print("error");
+            CustomResponseUtil.unAuthentication(resp,"로그인을 진행해주세요.");
         });
 
         http.authorizeRequests()
