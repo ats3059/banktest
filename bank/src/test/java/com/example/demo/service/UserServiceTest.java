@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import com.example.demo.config.dummy.DummyObject;
 import com.example.demo.domain.user.User;
-import com.example.demo.domain.user.UserEnum;
 import com.example.demo.domain.user.UserRepository;
 import com.example.demo.dto.user.UserRequestDto;
 import com.example.demo.dto.user.UserResponseDto;
@@ -17,8 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -46,7 +43,7 @@ class UserServiceTest extends DummyObject {
         joinReqDto.setFullName("쌀");
 
         // stub 1
-        when(userRepository.findByUserName(any())).thenReturn(Optional.empty());
+        when(userRepository.findByUsername(any())).thenReturn(Optional.empty());
 
         // stub 2
         User ssar = newMockUser(1L,"ssar","쌀");

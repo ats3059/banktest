@@ -12,7 +12,7 @@ public class DummyObject {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encPassword = passwordEncoder.encode("1234");
         return User.builder()
-                .username("ssal")
+                .username(username)
                 .password(encPassword)
                 .email(username + "@nate.com")
                 .fullName(fullName)

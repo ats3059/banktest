@@ -2,8 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.domain.user.User;
 import com.example.demo.domain.user.UserRepository;
-import com.example.demo.dto.user.UserRequestDto;
-import com.example.demo.dto.user.UserResponseDto;
+import com.example.demo.dto.user.UserRequestDto.JoinReqDto;
+import com.example.demo.dto.user.UserResponseDto.JoinRespDto;
 import com.example.demo.handler.ex.CustomApiException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -24,9 +24,9 @@ public class UserService {
 
     // 서비스는 DTO를 요청받고 DTO로 응답한다.
     @Transactional
-    public UserResponseDto.JoinRespDto 회원가입(UserRequestDto.JoinReqDto joinReqDto) {
+    public JoinRespDto 회원가입(JoinReqDto joinReqDto) {
         // 1. 동일 유저네임 존재 검사
-        Optional<User> userOp = userRepository.findByUserName(joinReqDto.getUsername());
+        Optional<User> userOp = userRepository.findByUsername(joinReqDto.getUsername());
         if(userOp.isPresent()){
             throw new CustomApiException("동일한 username이 존재합니다.");
         }
@@ -35,7 +35,7 @@ public class UserService {
         User userPS = userRepository.save(joinReqDto.toEntity(passwordEncoder));
         
         // 3. dto 응답
-        return new UserResponseDto.JoinRespDto(userPS);
+        return new JoinRespDto(userPS);
     }
 
 }
